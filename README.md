@@ -1,0 +1,2 @@
+This idea or project uses the face emotion detector.In which it uses the pyhton and libraries- opencv,yolo.Taking the eyelids as major factor for the detection whether the person is sleeping or not.
+This projects deals with the vehicles drivers especially car or trucks. Which helps the drivers awake while driving if he fall on sleep our face emotion detector reconizes the person then send a signal to wake him up if it's failed to wake up and if  ai  as access to the car controls it can slowly stops the vehicle after signaling two or three times.
