@@ -13,7 +13,8 @@ export const Dashboard = () => {
     isTracking, setTracking, earThreshold,
     status, setStatus, addWarning, addEmergency,
     alarmSoundEnabled, voiceAlertEnabled,
-    blinkCount, incrementBlink, drowsyWarnings, emergencyStops
+    blinkCount, incrementBlink, drowsyWarnings, emergencyStops,
+    resetSession
   } = useStore();
 
   const [fps, setFps] = useState(0);
@@ -303,9 +304,14 @@ export const Dashboard = () => {
               📊 History
             </button>
           </div>
-          <button onClick={() => setShowSettings(true)} className="btn-ghost w-full py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
-            ⚙️ Settings
-          </button>
+          <div className="grid grid-cols-2 gap-3 w-full">
+            <button onClick={() => setShowSettings(true)} className="btn-ghost py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-colors">
+              ⚙️ Settings
+            </button>
+            <button onClick={resetSession} className="btn-ghost py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-red-500/10 hover:text-red-400 transition-colors">
+              🔄 Reset
+            </button>
+          </div>
           <button onClick={() => setTracking(!isTracking)}
             className={`w-full py-4 mt-2 rounded-xl text-lg font-bold flex justify-center items-center gap-2 transition-transform active:scale-95 ${isTracking ? 'btn-danger shadow-[0_0_20px_rgba(239,68,68,0.3)]' : 'btn-primary shadow-[0_0_20px_rgba(59,130,246,0.3)]'}`}>
             {isTracking ? '■ Stop Tracking' : '▶ Start Tracking'}
