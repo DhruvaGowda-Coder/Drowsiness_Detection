@@ -313,7 +313,7 @@ export const Dashboard = () => {
         </div>
       </aside>
 
-      <main className="flex-1 flex flex-col overflow-hidden bg-[#09090B] min-h-[60vh] md:min-h-0 p-4 md:p-6 lg:p-8">
+      <main className="flex-1 flex flex-col overflow-hidden bg-[#09090B] min-h-[60vh] md:min-h-0" style={{ padding: '24px' }}>
         {/* Top bar */}
         <div className="flex justify-between items-center mb-6">
           <div>
