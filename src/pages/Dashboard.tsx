@@ -118,8 +118,12 @@ export const Dashboard = () => {
         lastVideoTimeRef.current = video.currentTime;
         const results = faceLandmarkerRef.current.detectForVideo(video, performance.now());
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d");
-        if (ctx) {
+        if (canvas && video.videoWidth > 0 && canvas.width !== video.videoWidth) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+        }
+        const ctx = canvas?.getContext("2d");
+        if (ctx && canvas) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           if (results.faceLandmarks && results.faceLandmarks.length > 0) {
             setIsFaceDetected(true);
@@ -353,8 +357,8 @@ export const Dashboard = () => {
               mirrored={true}
               className="absolute inset-0 w-full h-full object-cover"
               videoConstraints={{ 
-                width: 1280, 
-                height: 720, 
+                width: { ideal: 1280 }, 
+                height: { ideal: 720 }, 
                 ...(selectedCameraId ? { deviceId: { exact: selectedCameraId } } : { facingMode: "user" })
               }}
               onUserMedia={refreshCameras}
@@ -363,7 +367,7 @@ export const Dashboard = () => {
           )}
           <canvas ref={canvasRef}
             className="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none"
-            style={{ transform: 'scaleX(-1)' }} width={1280} height={720} />
+            style={{ transform: 'scaleX(-1)' }} />
           {status === 'Emergency' && (
             <div className="absolute inset-0 z-30 emergency-overlay flex flex-col justify-center items-center">
               <div className="text-7xl mb-6">⚠️</div>
