@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import Webcam from 'react-webcam';
 import { FilesetResolver, FaceLandmarker } from '@mediapipe/tasks-vision';
 import { useStore } from '../store/useStore';
@@ -35,7 +35,7 @@ export const Dashboard = () => {
   const closedFramesRef = useRef(0);
   const lastAlarmTimeRef = useRef(0);
   const faceLandmarkerRef = useRef<FaceLandmarker | null>(null);
-  const requestRef = useRef<number>();
+  const requestRef = useRef<number>(0);
   const lastVideoTimeRef = useRef(-1);
   const framesRef = useRef(0);
   const lastFpsTimeRef = useRef(performance.now());
