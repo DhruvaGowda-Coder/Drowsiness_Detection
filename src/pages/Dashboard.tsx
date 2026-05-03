@@ -361,7 +361,7 @@ export const Dashboard = () => {
               ref={webcamRef} 
               audio={false} 
               mirrored={true}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-contain"
               videoConstraints={{ 
                 width: { ideal: 1280 }, 
                 height: { ideal: 720 }, 
@@ -372,7 +372,7 @@ export const Dashboard = () => {
             />
           )}
           <canvas ref={canvasRef}
-            className="absolute inset-0 w-full h-full object-cover z-10 pointer-events-none"
+            className="absolute inset-0 w-full h-full object-contain z-10 pointer-events-none"
             style={{ transform: 'scaleX(-1)' }} />
           {status === 'Emergency' && (
             <div className="absolute inset-0 z-30 emergency-overlay flex flex-col justify-center items-center">
