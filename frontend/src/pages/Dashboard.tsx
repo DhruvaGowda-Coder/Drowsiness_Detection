@@ -5,8 +5,6 @@ import { useStore } from '../store/useStore';
 import { calculateEAR, calculateMAR, RIGHT_EYE, LEFT_EYE } from '../utils/faceUtils';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
-
 export const Dashboard = () => {
   const webcamRef = useRef<Webcam>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -196,38 +194,37 @@ export const Dashboard = () => {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleSaveSession = async () => {
+  const handleSaveSession = () => {
     const durationSeconds = trackingStartTime 
       ? Math.floor((Date.now() - trackingStartTime) / 1000) 
       : 0;
 
+    const newSession = {
+      id: Date.now(),
+      duration: durationSeconds,
+      blinkCount,
+      drowsyWarnings,
+      emergencyStops,
+      timestamp: new Date().toISOString()
+    };
+
     try {
-      const res = await fetch(`${API_BASE_URL}/api/sessions`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          duration: durationSeconds,
-          blinkCount,
-          drowsyWarnings,
-          emergencyStops
-        })
-      });
-      if (res.ok) showToast("✅ Session saved successfully!");
-    } catch {
-      showToast("⚠️ Backend not reachable. Ensure the server is running.");
+      const existingSessions = JSON.parse(localStorage.getItem('drowseguard_sessions') || '[]');
+      const updatedSessions = [newSession, ...existingSessions].slice(0, 50); // Keep last 50
+      localStorage.setItem('drowseguard_sessions', JSON.stringify(updatedSessions));
+      showToast("✅ Session saved to local history!");
+    } catch (e) {
+      showToast("⚠️ Could not save session.");
     }
   };
 
-  const fetchHistory = async () => {
+  const fetchHistory = () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/api/sessions`);
-      if (res.ok) {
-        const data = await res.json();
-        setSessionHistory(data.data || []);
-        setShowHistory(true);
-      }
-    } catch {
-      showToast("⚠️ Could not fetch history. Ensure the server is running.");
+      const data = JSON.parse(localStorage.getItem('drowseguard_sessions') || '[]');
+      setSessionHistory(data);
+      setShowHistory(true);
+    } catch (e) {
+      showToast("⚠️ Could not load history.");
     }
   };
 
