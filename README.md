@@ -1,8 +1,11 @@
-# 🚘 SafeDriveAI: Driver Drowsiness Detection System
+# 🚘 DrowseGuard: Driver Drowsiness Detection System
 
 ![Dashboard Preview](https://via.placeholder.com/1200x600.png?text=Dashboard+Preview)
 
 A full-stack, production-ready web application that detects driver drowsiness in real-time using advanced facial landmark detection. Built with React, Node.js, and MediaPipe, this system runs edge AI directly in the browser with zero latency.
+
+### Original Concept
+> This project deals with vehicle drivers, especially car or truck drivers. It helps keep drivers awake while driving. If the driver falls asleep, our face/emotion detector recognizes the person and sends a signal to wake them up. If it fails to wake them up and the AI has access to the car controls, it can slowly stop the vehicle after signaling two or three times.
 
 ---
 
