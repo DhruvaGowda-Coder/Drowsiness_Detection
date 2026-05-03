@@ -71,13 +71,10 @@ export const Landing = () => {
             Tracks 478 facial landmarks in real-time — entirely in your browser.
           </motion.p>
 
-          <motion.div custom={3} variants={fadeUp} className="flex flex-col sm:flex-row gap-5 justify-center">
+          <motion.div custom={3} variants={fadeUp} className="flex justify-center">
             <button onClick={() => navigate('/dashboard')} className="btn-primary text-lg py-4 px-12">
               ▶ Start Monitoring
             </button>
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="btn-ghost text-lg py-4 px-12">
-              View Source
-            </a>
           </motion.div>
         </motion.div>
       </section>

@@ -238,9 +238,9 @@ export const Dashboard = () => {
 
 
   return (
-    <div className="h-screen flex flex-col md:flex-row" style={{ background: '#050810' }}>
+    <div className="min-h-screen md:h-screen flex flex-col md:flex-row" style={{ background: '#050810' }}>
       {/* ── Sidebar ── */}
-      <aside className="w-full md:w-[380px] flex-shrink-0 flex flex-col h-screen overflow-y-auto border-r border-white/5"
+      <aside className="w-full md:w-[380px] flex-shrink-0 flex flex-col overflow-y-visible md:overflow-y-auto border-b md:border-b-0 md:border-r border-white/5"
         style={{ background: 'rgba(8, 12, 24, 0.95)', padding: '28px' }}>
 
         {/* Logo */}
@@ -309,8 +309,7 @@ export const Dashboard = () => {
         </div>
       </aside>
 
-      {/* ── Main ── */}
-      <main className="flex-1 flex flex-col overflow-hidden bg-[#09090B]" style={{ padding: '24px 32px' }}>
+      <main className="flex-1 flex flex-col overflow-hidden bg-[#09090B] min-h-[60vh] md:min-h-0 p-4 md:p-6 lg:p-8">
         {/* Top bar */}
         <div className="flex justify-between items-center mb-6">
           <div>
