@@ -1,91 +1,119 @@
-# 🚘 DrowseGuard: Driver Drowsiness Detection System
+# 🚘 DrowseGuard — Driver Drowsiness Detection System
 
-![Dashboard Preview](https://via.placeholder.com/1200x600.png?text=Dashboard+Preview)
-
-A full-stack, production-ready web application that detects driver drowsiness in real-time using advanced facial landmark detection. Built with React, Node.js, and MediaPipe, this system runs edge AI directly in the browser with zero latency.
-
-### Original Concept
-> This project deals with vehicle drivers, especially car or truck drivers. It helps keep drivers awake while driving. If the driver falls asleep, our face/emotion detector recognizes the person and sends a signal to wake them up. If it fails to wake them up and the AI has access to the car controls, it can slowly stop the vehicle after signaling two or three times.
+Real-time driver drowsiness detection system that improves road safety using computer vision and edge AI, running entirely in the browser with zero data transmission.
 
 ---
 
-## ✨ Core Features
+## 🌐 Live Demo
 
-- **Real-Time Edge Detection:** Utilizes Google's MediaPipe Face Mesh to track 478 facial landmarks directly in the browser via WebRTC at 30+ FPS.
-- **Eye & Mouth Aspect Ratio Analysis:** Calculates EAR (Eye Aspect Ratio) and MAR (Mouth Aspect Ratio) continuously to detect blinking, prolonged eye closure, and yawning.
-- **Smart Alert System:**
-  - **Progressive Warnings:** Transitions dynamically from Awake 🟢 → Warning 🟡 → Drowsy 🟠 → Emergency 🔴 based on threshold timings.
-  - **Voice & Audio Alerts:** Uses Web Speech API for natural voice warnings and fallback auditory alarms.
-  - **Emergency Mode:** Simulates an emergency pull-over protocol if the driver remains unresponsive.
-- **Session Analytics:** Backend integration (Node.js + Express + SQLite) to save trip logs, blink counts, and warning occurrences for post-trip review.
-- **Modern UI:** Glassmorphism dashboard built with Tailwind CSS, fully responsive, featuring a dark-mode optimized interface.
+👉 https://drowsiness-detection-eight.vercel.app/
 
-## 🧱 Tech Stack
+---
+
+## 🎯 Problem Solved
+
+Driver fatigue is one of the leading causes of road accidents. Traditional monitoring systems require expensive hardware or cloud processing, making them inaccessible and privacy-invasive.
+
+---
+
+## 💡 Solution
+
+DrowseGuard uses real-time facial landmark tracking and edge AI to detect driver drowsiness directly in the browser, providing instant alerts without sending any data to external servers.
+
+---
+
+## ✨ Key Features
+
+* Real-time detection using **MediaPipe Face Mesh (478 landmarks)**
+* Runs at **~24–30 FPS** using WebAssembly for smooth performance
+* Eye Aspect Ratio (EAR) and Mouth Aspect Ratio (MAR) analysis
+* Detects blinking, prolonged eye closure, and yawning
+* Progressive alert system:
+
+  * Awake 🟢 → Warning 🟡 → Drowsy 🟠 → Emergency 🔴
+* Voice alerts using Web Speech API
+* Fully client-side execution (privacy-first, zero data transmission)
+* Session analytics with backend logging (Node.js + SQLite)
+
+---
+
+## 🧠 How It Works
+
+Webcam Input → Face Landmark Detection (MediaPipe) → EAR/MAR Calculation → State Classification → Alert System → User Feedback
+
+---
+
+## 🏗️ Tech Stack
 
 ### Frontend
-- **Framework:** React.js (Vite + TypeScript)
-- **Styling:** Tailwind CSS + Framer Motion
-- **State Management:** Zustand
-- **AI/CV:** `@mediapipe/tasks-vision` (WebAssembly)
-- **Routing:** React Router DOM
+
+* React.js (Vite + TypeScript)
+* Tailwind CSS + Framer Motion
+* Zustand (state management)
+* MediaPipe (WebAssembly)
 
 ### Backend
-- **Environment:** Node.js
-- **Framework:** Express.js
-- **Database:** SQLite3
-- **Middleware:** CORS, Body-Parser
+
+* Node.js + Express
+* SQLite (session logging)
 
 ---
 
-## 🚀 Quick Start
+## 🧩 Architecture
 
-### Prerequisites
-- Node.js (v18+)
-- npm
+```id="dzgarch"
+Frontend (React) → Webcam Stream → MediaPipe Processing → Feature Calculation (EAR/MAR) → State Detection → Alerts  
+                                      ↓  
+                                  Backend API → Session Logs (SQLite)
+```
 
-### Installation & Execution
-To get the application running locally in one step, clone the repository and run:
+---
 
-```bash
+## 🚀 Run Locally
+
+```bash id="dzg1"
 npm run install:all
 npm run dev
 ```
 
-*This will concurrently start the Express API on port `3001` and the Vite React app on port `5173`.*
+---
 
-Open your browser and navigate to: `http://localhost:5173`
+Open:
+👉 http://localhost:5173
 
 ---
 
-## 🏗️ Architecture
+## 📊 Performance
 
-```
-driver-drowsiness-system/
-├── backend/                  # Node.js API server
-│   ├── server.js             # Express API endpoints
-│   ├── package.json          
-│   └── sessions.db           # SQLite database (auto-generated)
-├── frontend/                 # React frontend application
-│   ├── src/
-│   │   ├── components/       
-│   │   ├── pages/            # Landing and Dashboard
-│   │   ├── store/            # Zustand state management
-│   │   ├── utils/            # Face detection math (EAR/MAR)
-│   │   ├── App.tsx           
-│   │   └── main.tsx          
-│   ├── tailwind.config.js    
-│   └── vite.config.ts        
-├── package.json              # Root package to manage both apps
-└── README.md
-```
+* Real-time processing at **~24–30 FPS**
+* Uses **478 facial landmarks** for high accuracy
+* Zero-latency inference (edge computation in browser)
+
+---
+
+## 📁 Project Structure
+
+* `/frontend` → React application (UI + detection logic)
+* `/backend` → Node.js API for session tracking
+* `/utils` → EAR/MAR calculations
+
+---
 
 ## 🔮 Future Improvements
 
-- [ ] Add explicit Head Pose Estimation (Pitch/Yaw/Roll) to detect head nodding.
-- [ ] Implement user authentication to associate sessions with specific driver profiles.
-- [ ] Add PDF report generation using `jspdf` to export session analytics.
-- [ ] Containerize with Docker for simplified cloud deployment on AWS/GCP.
+* Head pose estimation (pitch/yaw/roll detection)
+* Driver profile system with authentication
+* PDF analytics report export
+* Docker-based cloud deployment
 
 ---
 
-*Built for maximum road safety. Edge-computed. Privacy-first.*
+## 🎯 Impact
+
+* Helps reduce accidents caused by driver fatigue
+* Demonstrates real-time edge AI in web applications
+* Combines computer vision, frontend systems, and backend analytics
+
+---
+
+*Built for real-world safety. Edge-powered. Privacy-first.*
