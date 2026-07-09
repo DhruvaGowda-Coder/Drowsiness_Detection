@@ -202,10 +202,11 @@ export const Dashboard = () => {
               ctx.closePath();
               ctx.stroke();
             };
-            const leftEar = calculateEAR(landmarks, LEFT_EYE);
-            const rightEar = calculateEAR(landmarks, RIGHT_EYE);
+            const frameSize = { width: video.videoWidth, height: video.videoHeight };
+            const leftEar = calculateEAR(landmarks, LEFT_EYE, frameSize);
+            const rightEar = calculateEAR(landmarks, RIGHT_EYE, frameSize);
             const avgEar = (leftEar + rightEar) / 2.0;
-            const mar = calculateMAR(landmarks);
+            const mar = calculateMAR(landmarks, frameSize);
             const eyeColor = avgEar < earThreshold ? 'rgba(248,113,113,0.95)' : 'rgba(52,211,153,0.95)';
             drawEye(LEFT_EYE, eyeColor);
             drawEye(RIGHT_EYE, eyeColor);

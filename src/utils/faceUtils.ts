@@ -1,10 +1,27 @@
+type LandmarkPoint = {
+  x: number;
+  y: number;
+};
+
+type FrameSize = {
+  width: number;
+  height: number;
+};
+
+const toFramePoint = (point: LandmarkPoint, frameSize?: FrameSize) => ({
+  x: frameSize ? point.x * frameSize.width : point.x,
+  y: frameSize ? point.y * frameSize.height : point.y
+});
+
 // Calculate distance between two points
-const distance = (p1: any, p2: any) => {
-  return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+const distance = (p1: LandmarkPoint, p2: LandmarkPoint, frameSize?: FrameSize) => {
+  const a = toFramePoint(p1, frameSize);
+  const b = toFramePoint(p2, frameSize);
+  return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 };
 
 // Calculate Eye Aspect Ratio
-export const calculateEAR = (landmarks: any[], eyeIndices: number[]) => {
+export const calculateEAR = (landmarks: LandmarkPoint[], eyeIndices: number[], frameSize?: FrameSize) => {
   // Eye indices typically:
   // [left_corner, top_right, bottom_right, right_corner, bottom_left, top_left]
   // e.g. for right eye: [33, 160, 158, 133, 153, 144]
@@ -19,17 +36,18 @@ export const calculateEAR = (landmarks: any[], eyeIndices: number[]) => {
   const p6 = landmarks[eyeIndices[5]];
 
   // Vertical distances
-  const d1 = distance(p2, p6);
-  const d2 = distance(p3, p5);
+  const d1 = distance(p2, p6, frameSize);
+  const d2 = distance(p3, p5, frameSize);
   // Horizontal distance
-  const d3 = distance(p1, p4);
+  const d3 = distance(p1, p4, frameSize);
+  if (d3 === 0) return 0;
 
   const ear = (d1 + d2) / (2.0 * d3);
   return ear;
 };
 
 // Calculate Mouth Aspect Ratio (for yawning)
-export const calculateMAR = (landmarks: any[]) => {
+export const calculateMAR = (landmarks: LandmarkPoint[], frameSize?: FrameSize) => {
   // Outer lip indices
   // Top: 13, Bottom: 14
   // Left: 78, Right: 308
@@ -40,8 +58,9 @@ export const calculateMAR = (landmarks: any[]) => {
   const left = landmarks[78];
   const right = landmarks[308];
 
-  const verticalDist = distance(top, bottom);
-  const horizontalDist = distance(left, right);
+  const verticalDist = distance(top, bottom, frameSize);
+  const horizontalDist = distance(left, right, frameSize);
+  if (horizontalDist === 0) return 0;
 
   return verticalDist / horizontalDist;
 };
